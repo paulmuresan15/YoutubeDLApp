@@ -43,7 +43,7 @@ class PrintLogger:  # create file like object
 
 
 root = Tk()
-root.title("Downloader")
+root.title("Yotube MP3 Downloader")
 root.geometry("500x500")
 root.maxsize(500, 500)
 root.minsize(500, 500)
