@@ -11,8 +11,16 @@ import os
 def downloadSongs(path):
     strings = songTextArea.get('1.0', 'end-1c').splitlines()
     for element in strings:
-        videosSearch = VideosSearch(element, limit=1)
-        downloader.download(videosSearch.result()['result'][0]['link'], path)
+     videosSearch = VideosSearch(element, limit=1)
+     if(v==1):
+      downloader.downloadSong(videosSearch.result()['result'][0]['link'], path)
+     else:
+      downloader.downloadSong(element,path)
+
+
+
+
+
 
 
 def browse_directory():
@@ -44,15 +52,34 @@ class PrintLogger:  # create file like object
 
 root = Tk()
 root.title("Yotube MP3 Downloader")
-root.geometry("500x500")
-root.maxsize(500, 500)
-root.minsize(500, 500)
+w=500
+h=550
+ws = root.winfo_screenwidth()
+hs = root.winfo_screenheight()
+x = (ws / 2) - (w / 2)
+y = (hs / 2) - (h / 2)
+root.geometry('%dx%d+%d+%d' % (w, h, x, y))
+root.maxsize(500, 550)
+root.minsize(500, 550)
 root.columnconfigure(0, weight=1)
-enterSongsLabel = Label(root, text="Enter songs:")
+enterSongsLabel = Label(root, text="Enter songs/URL:")
 enterSongsLabel.grid()
 
 songTextArea = Text(height=10, width=50)
 songTextArea.grid()
+v = tk.IntVar()
+tk.Radiobutton(root,
+               text="Song",
+               padx = 20,
+               variable=v,
+               value=1).grid()
+
+tk.Radiobutton(root,
+               text="URL",
+               padx = 20,
+               variable=v,
+               value=2).grid()
+v.set(1)
 mixtapeLabel = Label(root, text="Choose mixtape name:")
 mixtapeLabel.grid()
 mixtapeEntry = Entry(root)
@@ -64,7 +91,6 @@ directoryButton.grid()
 directoryText = Text(root, width=50, height=1)
 directoryText.grid(pady=8)
 
-# mixtapeEntry.grid()
 
 downloadButton = Button(text="Download", command=lambda: downloadSongs(directoryText.get('1.0', 'end-1c')))
 downloadButton.grid(pady=8)

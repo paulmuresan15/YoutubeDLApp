@@ -17,11 +17,8 @@ def my_hook(d):
         print('Done downloading, now converting ...')
 
 
-
-
-
-def download(songList,path):
-  ydl_opts = {
+def downloadSong(songList, path):
+    ydl_opts = {
         'format': 'bestaudio/best',
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
@@ -29,8 +26,8 @@ def download(songList,path):
             'preferredquality': '192',
         }],
         'logger': MyLogger(),
-        'outtmpl': path+'/%(title)s.%(ext)s',
+        'outtmpl': path + '/%(title)s.%(ext)s',
         'progress_hooks': [my_hook],
     }
-  with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-     ydl.download([songList])
+    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+        ydl.download([songList])
