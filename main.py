@@ -12,7 +12,7 @@ def downloadSongs(path):
     strings = songTextArea.get('1.0', 'end-1c').splitlines()
     for element in strings:
      videosSearch = VideosSearch(element, limit=1)
-     if(v==1):
+     if(v.get()==1):
       downloader.downloadSong(videosSearch.result()['result'][0]['link'], path)
      else:
       downloader.downloadSong(element,path)
